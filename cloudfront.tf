@@ -83,13 +83,13 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     }
   }
 
-  dynamic "function_association" {
-    for_each = var.function_association
-    content {
-      event_type   = function_association.value.event_type
-      function_arn = function_association.value.function_arn
-    }
-  }
+  # dynamic "function_association" {
+  #   for_each = var.function_association
+  #   content {
+  #     event_type   = function_association.value.event_type
+  #     function_arn = function_association.value.function_arn
+  #   }
+  # }
 
   dynamic "custom_error_response" {
     for_each = var.custom_error_response
