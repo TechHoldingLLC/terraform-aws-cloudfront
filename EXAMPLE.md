@@ -8,13 +8,15 @@ module "cloudfront" {
   origin = {
     domain_name = "s3_bucket_regional_domain_name"
     origin_id   = "s3_bucket_name"
-    ## We can not use the Origin Access Control and Origin Access Identity togather
+
+    ## We can only use Any one of Origin Access Control or Origin Access Identity
     # For Origin Access Control
     origin_access_control_id = "s3_cloudfront_origin_access_control_id"
     # For Origin Access Identity
     s3_origin_config = {
       s3_origin_access_identity = "s3_cloudfront_origin_access_identity_path"
     }
+
   }
   domain_aliases = ["example.com", "www.example.com"]
   acm_arn        = "acm_arn"
