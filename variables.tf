@@ -45,11 +45,11 @@ variable "lambda_function_association" {
   default     = []
 }
 
-variable "function_association" {
-  description = "Function association"
-  type        = list(any)
-  default     = []
-}
+# variable "function_association" {
+#   description = "Function association"
+#   type        = list(any)
+#   default     = []
+# }
 
 variable "logging_config" {
   description = "Cloudfront logging config"
