@@ -81,13 +81,13 @@ resource "aws_cloudfront_distribution" "cloudfront" {
         include_body = lambda_function_association.value.include_body
       }
     }
-  }
 
-  dynamic "function_association" {
-    for_each = var.function_association
-    content {
-      event_type   = function_association.value.event_type
-      function_arn = function_association.value.function_arn
+    dynamic "function_association" {
+      for_each = var.function_association
+      content {
+        event_type   = function_association.value.event_type
+        function_arn = function_association.value.function_arn
+      }
     }
   }
 
