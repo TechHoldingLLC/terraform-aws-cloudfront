@@ -1,6 +1,7 @@
 variable "acm_arn" {
   description = "ACM cert arn"
   type        = string
+  default = ""
 }
 
 variable "allowed_methods" {
