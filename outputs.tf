@@ -1,7 +1,11 @@
-output "cloudfront_id" {
+output "id" {
   value = aws_cloudfront_distribution.cloudfront.id
 }
 
-output "cloudfront_arn" {
+output "arn" {
   value = aws_cloudfront_distribution.cloudfront.arn
+}
+
+output "hosted_zone_id" {
+  value = aws_cloudfront_distribution.cloudfront.hosted_zone_id
 }
