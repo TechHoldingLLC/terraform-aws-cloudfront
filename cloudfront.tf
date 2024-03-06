@@ -115,8 +115,4 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       include_cookies = logging_config.value.include_cookies
     }
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
