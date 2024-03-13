@@ -42,9 +42,7 @@ No modules.
 | <a name="input_origin"></a> [origin](#input\_origin) | Origin configuration | `any` | n/a | yes |
 | <a name="input_route53_zone_id"></a> [route53\_zone\_id](#input\_route53\_zone\_id) | Route53 zone id | `string` | `""` | no |
 | <a name="input_web_acl_id"></a> [web\_acl\_id](#input\_web\_acl\_id) | WAF web ACL id | `string` | `""` | no |
-| <a name="input_min_ttl"></a> [min\_ttl](#input\_min\_ttl) | min ttl | `number` | 0 | no |
-| <a name="input_max_ttl"></a> [max\_ttl](#input\_max\_ttl) | max ttl | `number` | 86400 | no |
-| <a name="input_default_ttl"></a> [default\_ttl](#input\_default\_ttl) | default ttl | `number` | 3600 | no |
+| <a name="input_ttl_values"></a> [ttl\_values](#input\_ttl\_values) | ttl values | `map` | {} | no |
 
 ## Outputs
 

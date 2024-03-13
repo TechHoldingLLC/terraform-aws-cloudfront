@@ -98,20 +98,8 @@ variable "ipv6" {
   default     = false
 }
 
-variable "min_ttl" {
-  description = "minimum ttl value for caching"
-  type        = number
-  default     = 0
-}
-
-variable "max_ttl" {
-  description = "maximum ttl value for caching"
-  type        = number
-  default     = 86400
-}
-
-variable "default_ttl" {
-  description = "default ttl value for caching"
-  type        = number
-  default     = 3600
+variable "ttl_values" {
+  description = "map of ttl variables"
+  type        = map(any)
+  default     = {}
 }
