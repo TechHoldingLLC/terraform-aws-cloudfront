@@ -65,3 +65,33 @@ module "cloudfront" {
     ]
 }
 ```
+
+## Cloudfront distribution with s3 Origin with TTL value
+```
+module "cloudfront" {
+  source = "./cloudfront"
+  origin = {
+    domain_name = "s3_bucket_regional_domain_name"
+    origin_id   = "s3_bucket_name"
+
+    ## We can only use Any one of Origin Access Control or Origin Access Identity
+    # For Origin Access Control
+    origin_access_control_id = "s3_cloudfront_origin_access_control_id"
+    # For Origin Access Identity
+    s3_origin_config = {
+      s3_origin_access_identity = "s3_cloudfront_origin_access_identity_path"
+    }
+
+  }
+  domain_aliases = ["example.com", "www.example.com"]
+  acm_arn        = "acm_arn"
+
+  ## TTL(Time to Live) is the time in seconds that an object is in Cloudfront Cache.
+  # If we pass these below values then it will be overwritten by default values.
+  ttl_values = {
+    min_ttl = 1         # min amount of time that you want objects to stay in cloudfront cache before it sends another request to origin
+    max_ttl = 86900     # max amount of time that you want objects to stay in cloudfront cache before it sends another request to origin
+    default_ttl = 3500  # default amount of time that you want objects to stay in cloudfront cache before it sends another request to origin
+  }
+}
+```

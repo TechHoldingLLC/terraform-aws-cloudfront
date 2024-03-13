@@ -97,3 +97,9 @@ variable "ipv6" {
   type        = bool
   default     = false
 }
+
+variable "ttl_values" {
+  description = "map of ttl variables"
+  type        = map(any)
+  default     = {}
+}
