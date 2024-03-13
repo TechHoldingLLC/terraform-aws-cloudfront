@@ -60,9 +60,9 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
-    min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
+    min_ttl                = var.min_ttl
+    max_ttl                = var.max_ttl
+    default_ttl            = var.default_ttl
 
     dynamic "forwarded_values" {
       for_each = var.cache_policy_id != "" ? [] : [1]
