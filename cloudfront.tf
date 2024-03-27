@@ -53,16 +53,17 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   default_root_object = var.default_root_object
 
   default_cache_behavior {
-    allowed_methods  = var.allowed_methods
-    cached_methods   = var.cached_methods
-    target_origin_id = var.origin["origin_id"]
-    cache_policy_id  = var.cache_policy_id
+    allowed_methods          = var.allowed_methods
+    cached_methods           = var.cached_methods
+    target_origin_id         = var.origin["origin_id"]
+    cache_policy_id          = var.cache_policy_id
+    origin_request_policy_id = var.origin_request_policy_id
 
-    viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = var.viewer_protocol_policy
     compress               = true
-    min_ttl                = lookup(var.ttl_values,"min_ttl",0)
-    max_ttl                = lookup(var.ttl_values,"max_ttl",86400)
-    default_ttl            = lookup(var.ttl_values,"default_ttl",3600)
+    min_ttl                = lookup(var.ttl_values, "min_ttl", 0)
+    max_ttl                = lookup(var.ttl_values, "max_ttl", 86400)
+    default_ttl            = lookup(var.ttl_values, "default_ttl", 3600)
 
     dynamic "forwarded_values" {
       for_each = var.cache_policy_id != "" ? [] : [1]

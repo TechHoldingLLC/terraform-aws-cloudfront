@@ -2,13 +2,13 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0 |
 
 ## Modules
 
@@ -25,7 +25,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_acm_arn"></a> [acm\_arn](#input\_acm\_arn) | ACM cert arn | `string` | n/a | no |
+| <a name="input_acm_arn"></a> [acm\_arn](#input\_acm\_arn) | ACM cert arn | `string` | `""` | no |
 | <a name="input_allowed_methods"></a> [allowed\_methods](#input\_allowed\_methods) | Allowed methods | `list(any)` | <pre>[<br>  "GET",<br>  "HEAD"<br>]</pre> | no |
 | <a name="input_cache_policy_id"></a> [cache\_policy\_id](#input\_cache\_policy\_id) | AWS managed cache policy id | `string` | `""` | no |
 | <a name="input_cached_methods"></a> [cached\_methods](#input\_cached\_methods) | Cached methods | `list(any)` | <pre>[<br>  "GET",<br>  "HEAD"<br>]</pre> | no |
@@ -40,13 +40,21 @@ No modules.
 | <a name="input_lambda_function_association"></a> [lambda\_function\_association](#input\_lambda\_function\_association) | Lambda edge association | `list(any)` | `[]` | no |
 | <a name="input_logging_config"></a> [logging\_config](#input\_logging\_config) | Cloudfront logging config | `map(any)` | `{}` | no |
 | <a name="input_origin"></a> [origin](#input\_origin) | Origin configuration | `any` | n/a | yes |
+| <a name="input_origin_request_policy_id"></a> [origin\_request\_policy\_id](#input\_origin\_request\_policy\_id) | Unique identifier of the origin request policy that is attached to the behavior | `string` | `""` | no |
 | <a name="input_route53_zone_id"></a> [route53\_zone\_id](#input\_route53\_zone\_id) | Route53 zone id | `string` | `""` | no |
+| <a name="input_ttl_values"></a> [ttl\_values](#input\_ttl\_values) | map of ttl variables | `map(any)` | `{}` | no |
 | <a name="input_web_acl_id"></a> [web\_acl\_id](#input\_web\_acl\_id) | WAF web ACL id | `string` | `""` | no |
-| <a name="input_ttl_values"></a> [ttl\_values](#input\_ttl\_values) | ttl values | `map` | {} | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_cloudfront_arn"></a> [cloudfront\_arn](#output\_cloudfront\_arn) | n/a |
-| <a name="output_cloudfront_id"></a> [cloudfront\_id](#output\_cloudfront\_id) | n/a |
+| <a name="output_aliases"></a> [aliases](#output\_aliases) | n/a |
+| <a name="output_arn"></a> [arn](#output\_arn) | n/a |
+| <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | n/a |
+| <a name="output_hosted_zone_id"></a> [hosted\_zone\_id](#output\_hosted\_zone\_id) | n/a |
+| <a name="output_id"></a> [id](#output\_id) | n/a |
+
+## License
+
+Apache 2 Licensed. See [LICENSE](https://github.com/TechHoldingLLC/terraform-aws-cloudfront/blob/main/LICENSE) for full details.
