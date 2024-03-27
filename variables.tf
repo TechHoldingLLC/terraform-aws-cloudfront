@@ -103,3 +103,15 @@ variable "ttl_values" {
   type        = map(any)
   default     = {}
 }
+
+variable "origin_request_policy_id" {
+  description = "Unique identifier of the origin request policy that is attached to the behavior"
+  type        = string
+  default     = ""
+}
+
+variable "viewer_protocol_policy" {
+  description = "the protocol that users can use to access the files in the origin, valid values are allow-all, https-only, or redirect-to-https."
+  type        = string
+  default     = "redirect-to-https"
+}
