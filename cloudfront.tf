@@ -4,7 +4,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   web_acl_id      = var.web_acl_id #tfsec:ignore:aws-cloudfront-enable-waf
   comment         = var.comment
   http_version    = var.http_version
-  is_ipv6_enabled = var.ipv6
+  is_ipv6_enabled = var.is_ipv6_enabled
 
   dynamic "origin" {
     for_each = [var.origin]

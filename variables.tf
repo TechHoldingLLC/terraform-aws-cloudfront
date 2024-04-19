@@ -98,7 +98,7 @@ variable "http_version" {
   default     = "http2"
 }
 
-variable "ipv6" {
+variable "is_ipv6_enabled" {
   description = "ipv6 status"
   type        = bool
   default     = false
