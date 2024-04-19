@@ -12,6 +12,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     content {
       domain_name = origin.value.domain_name
       origin_id   = origin.value.origin_id
+      origin_path = lookup(origin.value, "origin_path", "")
 
       dynamic "s3_origin_config" {
         for_each = length(keys(lookup(origin.value, "s3_origin_config", {}))) > 0 ? [lookup(origin.value, "s3_origin_config")] : []
@@ -28,7 +29,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
           origin_protocol_policy = custom_origin_config.value.origin_protocol_policy
           http_port              = lookup(custom_origin_config.value, "http_port", 80)
           https_port             = lookup(custom_origin_config.value, "https_port", 443)
-          origin_ssl_protocols   = lookup(custom_origin_config.value, "origin_ssl_protocols", ["TLSv1", "TLSv1.1", "TLSv1.2"])
+          origin_ssl_protocols   = lookup(custom_origin_config.value, "origin_ssl_protocols", ["TLSv1.2"])
         }
       }
 
@@ -60,10 +61,10 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     origin_request_policy_id = var.origin_request_policy_id
 
     viewer_protocol_policy = var.viewer_protocol_policy
-    compress               = true
-    min_ttl                = lookup(var.ttl_values, "min_ttl", 0)
-    max_ttl                = lookup(var.ttl_values, "max_ttl", 86400)
-    default_ttl            = lookup(var.ttl_values, "default_ttl", 3600)
+    compress               = var.compress
+    min_ttl                = lookup(var.ttl_values, "min_ttl", null)
+    max_ttl                = lookup(var.ttl_values, "max_ttl", null)
+    default_ttl            = lookup(var.ttl_values, "default_ttl", null)
 
     dynamic "forwarded_values" {
       for_each = var.cache_policy_id != "" ? [] : [1]

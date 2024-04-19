@@ -22,6 +22,12 @@ variable "custom_error_response" {
   default     = []
 }
 
+variable "compress" {
+  description = "Compress file"
+  type = bool
+  default = false
+}
+
 variable "default_root_object" {
   description = "Default root object"
   type        = string
