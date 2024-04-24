@@ -22,6 +22,12 @@ variable "custom_error_response" {
   default     = []
 }
 
+variable "compress" {
+  description = "Compress file"
+  type = bool
+  default = false
+}
+
 variable "default_root_object" {
   description = "Default root object"
   type        = string
@@ -92,7 +98,7 @@ variable "http_version" {
   default     = "http2"
 }
 
-variable "ipv6" {
+variable "is_ipv6_enabled" {
   description = "ipv6 status"
   type        = bool
   default     = false
