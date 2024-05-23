@@ -7,7 +7,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   is_ipv6_enabled = var.is_ipv6_enabled
 
   dynamic "origin" {
-    for_each = [var.origin]
+    for_each = var.origin
 
     content {
       domain_name = origin.value.domain_name
