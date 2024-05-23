@@ -122,10 +122,9 @@ variable "viewer_protocol_policy" {
   default     = "redirect-to-https"
 }
 
-variable "cache_target_origin_id" {
+variable "default_cache_behaviour_target_origin_id" {
   description = "Target origin ID for default cache behaviour"
   type        = string
-  default     = "value"
 }
 
 variable "ordered_cache_behavior" {
