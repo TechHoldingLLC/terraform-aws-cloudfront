@@ -7,7 +7,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   is_ipv6_enabled = var.is_ipv6_enabled
 
   dynamic "origin" {
-    for_each = [var.origin]
+    for_each = var.origin
 
     content {
       domain_name = origin.value.domain_name
@@ -56,7 +56,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   default_cache_behavior {
     allowed_methods          = var.allowed_methods
     cached_methods           = var.cached_methods
-    target_origin_id         = var.origin["origin_id"]
+    target_origin_id         = var.default_cache_behaviour_target_origin_id
     cache_policy_id          = var.cache_policy_id
     origin_request_policy_id = var.origin_request_policy_id
 
@@ -92,6 +92,55 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       content {
         event_type   = function_association.value.event_type
         function_arn = function_association.value.function_arn
+      }
+    }
+  }
+
+  dynamic "ordered_cache_behavior" {
+    for_each = var.ordered_cache_behavior
+
+    content {
+      path_pattern = ordered_cache_behavior.value.path_pattern
+
+      target_origin_id         = ordered_cache_behavior.value.target_origin_id
+      allowed_methods          = lookup(ordered_cache_behavior.value, "allowed_methods", ["GET", "HEAD"])
+      cached_methods           = lookup(ordered_cache_behavior.value, "cached_methods", ["GET", "HEAD"])
+      cache_policy_id          = lookup(ordered_cache_behavior.value, "cache_policy_id", "")
+      origin_request_policy_id = lookup(ordered_cache_behavior.value, "origin_request_policy_id", "")
+
+      viewer_protocol_policy = lookup(ordered_cache_behavior.value, "viewer_protocol_policy", "redirect-to-https")
+      compress               = lookup(ordered_cache_behavior.value, "compress", false)
+      min_ttl                = lookup(var.ttl_values, "min_ttl", null)
+      max_ttl                = lookup(var.ttl_values, "max_ttl", null)
+      default_ttl            = lookup(var.ttl_values, "default_ttl", null)
+
+      dynamic "forwarded_values" {
+        for_each = var.cache_policy_id != "" ? [] : [1]
+
+        content {
+          query_string = false
+
+          cookies {
+            forward = "none"
+          }
+        }
+      }
+
+      dynamic "lambda_function_association" {
+        for_each = var.lambda_function_association
+        content {
+          event_type   = lambda_function_association.value.event_type
+          lambda_arn   = lambda_function_association.value.lambda_arn
+          include_body = lambda_function_association.value.include_body
+        }
+      }
+
+      dynamic "function_association" {
+        for_each = var.function_association
+        content {
+          event_type   = function_association.value.event_type
+          function_arn = function_association.value.function_arn
+        }
       }
     }
   }
