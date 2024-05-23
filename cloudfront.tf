@@ -56,7 +56,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   default_cache_behavior {
     allowed_methods          = var.allowed_methods
     cached_methods           = var.cached_methods
-    target_origin_id         = var.cache_target_origin_id
+    target_origin_id         = var.default_cache_behaviour_target_origin_id
     cache_policy_id          = var.cache_policy_id
     origin_request_policy_id = var.origin_request_policy_id
 
