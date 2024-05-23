@@ -96,6 +96,55 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     }
   }
 
+  dynamic "ordered_cache_behavior" {
+    for_each = var.ordered_cache_behavior
+
+    content {
+      path_pattern = ordered_cache_behavior.value.path_pattern
+
+      allowed_methods          = ordered_cache_behavior.value.allowed_methods
+      cached_methods           = ordered_cache_behavior.value.cached_methods
+      target_origin_id         = ordered_cache_behavior.value.target_origin_id
+      cache_policy_id          = ordered_cache_behavior.value.cache_policy_id
+      origin_request_policy_id = ordered_cache_behavior.value.origin_request_policy_id
+
+      viewer_protocol_policy = ordered_cache_behavior.value.viewer_protocol_policy
+      compress               = var.compress
+      min_ttl                = lookup(var.ttl_values, "min_ttl", null)
+      max_ttl                = lookup(var.ttl_values, "max_ttl", null)
+      default_ttl            = lookup(var.ttl_values, "default_ttl", null)
+
+      dynamic "forwarded_values" {
+        for_each = var.cache_policy_id != "" ? [] : [1]
+
+        content {
+          query_string = false
+
+          cookies {
+            forward = "none"
+          }
+        }
+      }
+
+      dynamic "lambda_function_association" {
+        for_each = var.lambda_function_association
+        content {
+          event_type   = lambda_function_association.value.event_type
+          lambda_arn   = lambda_function_association.value.lambda_arn
+          include_body = lambda_function_association.value.include_body
+        }
+      }
+
+      dynamic "function_association" {
+        for_each = var.function_association
+        content {
+          event_type   = function_association.value.event_type
+          function_arn = function_association.value.function_arn
+        }
+      }
+    }
+  }
+
   dynamic "custom_error_response" {
     for_each = var.custom_error_response
     content {

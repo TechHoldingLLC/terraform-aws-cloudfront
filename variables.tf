@@ -24,8 +24,8 @@ variable "custom_error_response" {
 
 variable "compress" {
   description = "Compress file"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "default_root_object" {
@@ -124,6 +124,11 @@ variable "viewer_protocol_policy" {
 
 variable "cache_target_origin_id" {
   description = "Target origin ID for default cache behaviour"
-  type = string
-  default = "value"
+  type        = string
+  default     = "value"
+}
+
+variable "ordered_cache_behavior" {
+  description = "List of ordered cache behaviour"
+  type        = list(any)
 }
