@@ -131,4 +131,5 @@ variable "cache_target_origin_id" {
 variable "ordered_cache_behavior" {
   description = "List of ordered cache behaviour"
   type        = list(any)
+  default     = []
 }
