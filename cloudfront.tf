@@ -56,20 +56,20 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   dynamic "default_cache_behavior" {
     for_each = var.origin
     content {
-      allowed_methods          = each.value.allowed_methods
-      cached_methods           = each.value.cached_methods
-      target_origin_id         = each.value.origin_id
-      cache_policy_id          = each.value.cache_policy_id
-      origin_request_policy_id = each.value.origin_request_policy_id
+      allowed_methods          = default_cache_behavior.value.allowed_methods
+      cached_methods           = default_cache_behavior.value.cached_methods
+      target_origin_id         = default_cache_behavior.value.origin_id
+      cache_policy_id          = default_cache_behavior.value.cache_policy_id
+      origin_request_policy_id = default_cache_behavior.value.origin_request_policy_id
 
-      viewer_protocol_policy = each.value.viewer_protocol_policy
-      compress               = each.value.compress
-      min_ttl                = lookup(each.value.ttl_values, "min_ttl", null)
-      max_ttl                = lookup(each.value.ttl_values, "max_ttl", null)
-      default_ttl            = lookup(each.value.ttl_values, "default_ttl", null)
+      viewer_protocol_policy = default_cache_behavior.value.viewer_protocol_policy
+      compress               = default_cache_behavior.value.compress
+      min_ttl                = lookup(default_cache_behavior.value.ttl_values, "min_ttl", null)
+      max_ttl                = lookup(default_cache_behavior.value.ttl_values, "max_ttl", null)
+      default_ttl            = lookup(default_cache_behavior.value.ttl_values, "default_ttl", null)
 
       dynamic "forwarded_values" {
-        for_each = each.value.cache_policy_id != "" ? [] : [1]
+        for_each = default_cache_behavior.value.cache_policy_id != "" ? [] : [1]
 
         content {
           query_string = false
@@ -81,7 +81,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       }
 
       dynamic "lambda_function_association" {
-        for_each = each.value.lambda_function_association
+        for_each = default_cache_behavior.value.lambda_function_association
         content {
           event_type   = lambda_function_association.value.event_type
           lambda_arn   = lambda_function_association.value.lambda_arn
@@ -90,7 +90,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       }
 
       dynamic "function_association" {
-        for_each = each.value.function_association
+        for_each = default_cache_behavior.value.function_association
         content {
           event_type   = function_association.value.event_type
           function_arn = function_association.value.function_arn
