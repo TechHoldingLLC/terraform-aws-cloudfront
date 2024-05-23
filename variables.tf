@@ -66,7 +66,7 @@ variable "logging_config" {
 
 variable "origin" {
   description = "Origin configuration"
-  type        = any
+  type        = list[any]
 }
 
 variable "route53_zone_id" {
@@ -120,4 +120,9 @@ variable "viewer_protocol_policy" {
   description = "the protocol that users can use to access the files in the origin, valid values are allow-all, https-only, or redirect-to-https."
   type        = string
   default     = "redirect-to-https"
+}
+
+variable "default_cache_behavior" {
+  description = "Default cache behaviour"
+  type        = list[any]
 }

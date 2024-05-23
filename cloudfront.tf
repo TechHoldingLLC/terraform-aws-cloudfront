@@ -53,45 +53,48 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   aliases             = var.domain_aliases
   default_root_object = var.default_root_object
 
-  default_cache_behavior {
-    allowed_methods          = var.allowed_methods
-    cached_methods           = var.cached_methods
-    target_origin_id         = var.origin["origin_id"]
-    cache_policy_id          = var.cache_policy_id
-    origin_request_policy_id = var.origin_request_policy_id
+  dynamic "default_cache_behavior" {
+    for_each = var.origin
+    content {
+      allowed_methods          = each.value.allowed_methods
+      cached_methods           = each.value.cached_methods
+      target_origin_id         = each.value.origin_id
+      cache_policy_id          = each.value.cache_policy_id
+      origin_request_policy_id = each.value.origin_request_policy_id
 
-    viewer_protocol_policy = var.viewer_protocol_policy
-    compress               = var.compress
-    min_ttl                = lookup(var.ttl_values, "min_ttl", null)
-    max_ttl                = lookup(var.ttl_values, "max_ttl", null)
-    default_ttl            = lookup(var.ttl_values, "default_ttl", null)
+      viewer_protocol_policy = each.value.viewer_protocol_policy
+      compress               = each.value.compress
+      min_ttl                = lookup(each.value.ttl_values, "min_ttl", null)
+      max_ttl                = lookup(each.value.ttl_values, "max_ttl", null)
+      default_ttl            = lookup(each.value.ttl_values, "default_ttl", null)
 
-    dynamic "forwarded_values" {
-      for_each = var.cache_policy_id != "" ? [] : [1]
+      dynamic "forwarded_values" {
+        for_each = each.value.cache_policy_id != "" ? [] : [1]
 
-      content {
-        query_string = false
+        content {
+          query_string = false
 
-        cookies {
-          forward = "none"
+          cookies {
+            forward = "none"
+          }
         }
       }
-    }
 
-    dynamic "lambda_function_association" {
-      for_each = var.lambda_function_association
-      content {
-        event_type   = lambda_function_association.value.event_type
-        lambda_arn   = lambda_function_association.value.lambda_arn
-        include_body = lambda_function_association.value.include_body
+      dynamic "lambda_function_association" {
+        for_each = each.value.lambda_function_association
+        content {
+          event_type   = lambda_function_association.value.event_type
+          lambda_arn   = lambda_function_association.value.lambda_arn
+          include_body = lambda_function_association.value.include_body
+        }
       }
-    }
 
-    dynamic "function_association" {
-      for_each = var.function_association
-      content {
-        event_type   = function_association.value.event_type
-        function_arn = function_association.value.function_arn
+      dynamic "function_association" {
+        for_each = each.value.function_association
+        content {
+          event_type   = function_association.value.event_type
+          function_arn = function_association.value.function_arn
+        }
       }
     }
   }
