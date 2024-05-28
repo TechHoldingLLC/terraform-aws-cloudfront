@@ -132,3 +132,9 @@ variable "ordered_cache_behavior" {
   type        = list(any)
   default     = []
 }
+
+variable "ordered_cache_behavior_cache_policy_id" {
+  description = "ordered cache behaviour cache policy id"
+  type        = map(any)
+  default     = {}
+}
