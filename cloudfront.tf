@@ -127,7 +127,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       }
 
       dynamic "lambda_function_association" {
-        for_each = contains(keys(ordered_cache_behavior.value), "lambda_function_association") ? [length(ordered_cache_behavior.value.lambda_function_association)] : []
+        for_each = contains(keys(ordered_cache_behavior.value), "lambda_function_association") ? ordered_cache_behavior.value.lambda_function_association : []
         content {
           event_type   = lambda_function_association.value.event_type
           lambda_arn   = lambda_function_association.value.lambda_arn
@@ -136,7 +136,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       }
 
       dynamic "function_association" {
-        for_each = contains(keys(ordered_cache_behavior.value), "function_association") ? [length(ordered_cache_behavior.value.function_association)] : []
+        for_each = contains(keys(ordered_cache_behavior.value), "function_association") ? ordered_cache_behavior.value.function_association : []
         content {
           event_type   = function_association.value.event_type
           function_arn = function_association.value.function_arn
