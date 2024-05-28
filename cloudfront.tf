@@ -115,7 +115,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       default_ttl            = lookup(var.ttl_values, "default_ttl", null)
 
       dynamic "forwarded_values" {
-        for_each = var.ordered_cache_behavior_cache_policy_id != {} || var.ordered_cache_behavior_cache_policy_id[ordered_cache_behavior.value.target_origin_id] != "" ? [] : [1]
+        for_each = var.ordered_cache_behavior_cache_policy_id == {} || var.ordered_cache_behavior_cache_policy_id[ordered_cache_behavior.value.target_origin_id] == "" ? [1] : []
 
         content {
           query_string = false
