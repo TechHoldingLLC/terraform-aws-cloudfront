@@ -66,7 +66,7 @@ variable "logging_config" {
 
 variable "origin" {
   description = "Origin configuration"
-  type        = list(any)
+  type        = any
 }
 
 variable "route53_zone_id" {
@@ -129,6 +129,6 @@ variable "default_cache_behaviour_target_origin_id" {
 
 variable "ordered_cache_behavior" {
   description = "List of ordered cache behaviour"
-  type        = list(any)
+  type        = any
   default     = []
 }
