@@ -115,7 +115,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
       default_ttl            = lookup(ordered_cache_behavior.value.ttl_values, "default_ttl", null)
 
       dynamic "forwarded_values" {
-        for_each = contains(keys(ordered_cache_behavior.value), "cache_policy_id") ? {} : ordered_cache_behavior.value.forwarded_values
+        for_each = contains(keys(ordered_cache_behavior.value), "cache_policy_id") ? [] : [ordered_cache_behavior.value.forwarded_values]
 
         content {
           query_string            = lookup(forwarded_values.value, "query_string", false)
