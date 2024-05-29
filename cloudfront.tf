@@ -67,13 +67,16 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     default_ttl            = lookup(var.ttl_values, "default_ttl", null)
 
     dynamic "forwarded_values" {
-      for_each = var.cache_policy_id != "" ? [] : [1]
+      for_each = var.cache_policy_id != "" ? [] : [var.default_cache_forwarded_values]
 
       content {
-        query_string = false
+        query_string            = lookup(forwarded_values.value, "query_string", false)
+        query_string_cache_keys = lookup(forwarded_values.value, "query_string_cache_keys", [])
+        headers                 = lookup(forwarded_values.value, "headers", [])
 
         cookies {
-          forward = "none"
+          forward           = lookup(forwarded_values.value, "cookies_forward", "none")
+          whitelisted_names = lookup(forwarded_values.value, "cookies_whitelisted_names", [])
         }
       }
     }
