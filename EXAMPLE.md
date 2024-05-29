@@ -169,7 +169,7 @@ module "cloudfront" {
       lambda_function_association = [
         {
           event_type   = "event_type"
-          lambda_arn   = cloudfront_function_arn
+          lambda_arn   = lambda_function_arn
           include_body = true
         }
       ]
