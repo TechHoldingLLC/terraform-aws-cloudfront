@@ -136,5 +136,5 @@ variable "ordered_cache_behavior" {
 variable "default_cache_forwarded_values" {
   description = "forwarded values for default cache behavior"
   type        = any
-  default     = []
+  default     = {}
 }
