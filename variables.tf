@@ -138,3 +138,15 @@ variable "default_cache_forwarded_values" {
   type        = any
   default     = {}
 }
+
+variable "put_default_root_object" {
+  description = "flag for default s3 object on index.html"
+  type        = bool
+  default     = false
+}
+
+variable "s3_bucket_name" {
+  description = "s3 bucket name for flag"
+  type        = string
+  default     = ""
+}
