@@ -9,6 +9,7 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0 |
+| <a name="provider_local"></a> [local](#provider\_local) | n/a |
 
 ## Modules
 
@@ -20,6 +21,8 @@ No modules.
 |------|------|
 | [aws_cloudfront_distribution.cloudfront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
 | [aws_route53_record.cloudfront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_s3_object.object](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
+| [local_file.default_object](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 
 ## Inputs
 
@@ -45,7 +48,9 @@ No modules.
 | <a name="input_ordered_cache_behavior"></a> [ordered\_cache\_behavior](#input\_ordered\_cache\_behavior) | List of ordered cache behaviour | `any` | `[]` | no |
 | <a name="input_origin"></a> [origin](#input\_origin) | Origin configuration | `any` | n/a | yes |
 | <a name="input_origin_request_policy_id"></a> [origin\_request\_policy\_id](#input\_origin\_request\_policy\_id) | Unique identifier of the origin request policy that is attached to the behavior | `string` | `""` | no |
+| <a name="input_put_default_root_object"></a> [put\_default\_root\_object](#input\_put\_default\_root\_object) | flag for default s3 object on index.html | `bool` | `false` | no |
 | <a name="input_route53_zone_id"></a> [route53\_zone\_id](#input\_route53\_zone\_id) | Route53 zone id | `string` | `""` | no |
+| <a name="input_s3_bucket_name"></a> [s3\_bucket\_name](#input\_s3\_bucket\_name) | s3 bucket name for flag | `string` | `""` | no |
 | <a name="input_ttl_values"></a> [ttl\_values](#input\_ttl\_values) | map of ttl variables | `map(any)` | `{}` | no |
 | <a name="input_viewer_protocol_policy"></a> [viewer\_protocol\_policy](#input\_viewer\_protocol\_policy) | the protocol that users can use to access the files in the origin, valid values are allow-all, https-only, or redirect-to-https. | `string` | `"redirect-to-https"` | no |
 | <a name="input_web_acl_id"></a> [web\_acl\_id](#input\_web\_acl\_id) | WAF web ACL id | `string` | `""` | no |
