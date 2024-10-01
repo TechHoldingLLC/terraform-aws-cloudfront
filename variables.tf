@@ -145,6 +145,12 @@ variable "put_default_root_object" {
   default     = false
 }
 
+variable "default_root_object_content" {
+  description = "Content for the default root object"
+  type        = string
+  default     = ""
+}
+
 variable "s3_bucket_name" {
   description = "s3 bucket name for flag"
   type        = string

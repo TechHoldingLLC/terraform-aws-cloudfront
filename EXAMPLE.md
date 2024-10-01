@@ -4,7 +4,7 @@ Below is an examples of calling this module.
 ## Cloudfront distribution with S3 origin
 ```
 module "cloudfront" {
-  source = "./cloudfront"
+  source = "git::https://github.com/TechHoldingLLC/terraform-aws-cloudfront.git?ref=<TAG>"
   origin = [
     {
       domain_name = "s3_bucket_regional_domain_name"
@@ -28,7 +28,7 @@ module "cloudfront" {
 ## Cloudfront distribution with custom http and https origin endpoint
 ```
 module "cloudfront" {
-  source     = "./cloudfront"
+  source     = "git::https://github.com/TechHoldingLLC/terraform-aws-cloudfront.git?ref=<TAG>"
   origin = [
     {
       domain_name = "s3_bucket_regional_domain_name"
@@ -74,7 +74,7 @@ module "cloudfront" {
 ## Cloudfront distribution with s3 Origin with TTL value
 ```
 module "cloudfront" {
-  source = "./cloudfront"
+  source = "git::https://github.com/TechHoldingLLC/terraform-aws-cloudfront.git?ref=<TAG>"
   origin = [
     {
       domain_name = "s3_bucket_regional_domain_name"
@@ -106,7 +106,7 @@ module "cloudfront" {
 ## Cloudfront distribution with multiple origin and cache behavior
 ```
 module "cloudfront" {
-  source = "./cloudfront"
+  source = "git::https://github.com/TechHoldingLLC/terraform-aws-cloudfront.git?ref=<TAG>"
   origin = [
     {
       domain_name = "domain_name"

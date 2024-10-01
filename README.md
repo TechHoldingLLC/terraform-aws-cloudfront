@@ -9,7 +9,6 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0 |
-| <a name="provider_local"></a> [local](#provider\_local) | n/a |
 
 ## Modules
 
@@ -22,7 +21,6 @@ No modules.
 | [aws_cloudfront_distribution.cloudfront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
 | [aws_route53_record.cloudfront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_s3_object.object](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
-| [local_file.default_object](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 
 ## Inputs
 
@@ -38,6 +36,7 @@ No modules.
 | <a name="input_default_cache_behaviour_target_origin_id"></a> [default\_cache\_behaviour\_target\_origin\_id](#input\_default\_cache\_behaviour\_target\_origin\_id) | Target origin ID for default cache behaviour | `string` | n/a | yes |
 | <a name="input_default_cache_forwarded_values"></a> [default\_cache\_forwarded\_values](#input\_default\_cache\_forwarded\_values) | forwarded values for default cache behavior | `any` | `{}` | no |
 | <a name="input_default_root_object"></a> [default\_root\_object](#input\_default\_root\_object) | Default root object | `string` | `"index.html"` | no |
+| <a name="input_default_root_object_content"></a> [default\_root\_object\_content](#input\_default\_root\_object\_content) | Content for the default root object | `string` | `""` | no |
 | <a name="input_domain_aliases"></a> [domain\_aliases](#input\_domain\_aliases) | domain aliases | `list(string)` | `null` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Cloudfront state | `bool` | `true` | no |
 | <a name="input_function_association"></a> [function\_association](#input\_function\_association) | Function association | `list(any)` | `[]` | no |
