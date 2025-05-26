@@ -105,11 +105,12 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     content {
       path_pattern = ordered_cache_behavior.value.path_pattern
 
-      target_origin_id         = ordered_cache_behavior.value.target_origin_id
-      allowed_methods          = lookup(ordered_cache_behavior.value, "allowed_methods", ["GET", "HEAD"])
-      cached_methods           = lookup(ordered_cache_behavior.value, "cached_methods", ["GET", "HEAD"])
-      cache_policy_id          = lookup(ordered_cache_behavior.value, "cache_policy_id", "")
-      origin_request_policy_id = lookup(ordered_cache_behavior.value, "origin_request_policy_id", "")
+      target_origin_id           = ordered_cache_behavior.value.target_origin_id
+      allowed_methods            = lookup(ordered_cache_behavior.value, "allowed_methods", ["GET", "HEAD"])
+      cached_methods             = lookup(ordered_cache_behavior.value, "cached_methods", ["GET", "HEAD"])
+      cache_policy_id            = lookup(ordered_cache_behavior.value, "cache_policy_id", "")
+      origin_request_policy_id   = lookup(ordered_cache_behavior.value, "origin_request_policy_id", "")
+      response_headers_policy_id = lookup(ordered_cache_behavior.value, "response_headers_policy_id", "")
 
       viewer_protocol_policy = lookup(ordered_cache_behavior.value, "viewer_protocol_policy", "redirect-to-https")
       compress               = lookup(ordered_cache_behavior.value, "compress", false)
