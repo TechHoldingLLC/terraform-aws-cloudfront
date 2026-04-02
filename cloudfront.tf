@@ -33,6 +33,15 @@ resource "aws_cloudfront_distribution" "cloudfront" {
         }
       }
 
+      dynamic "vpc_origin_config" {
+        for_each = length(keys(lookup(origin.value, "vpc_origin_config", {}))) > 0 ? [lookup(origin.value, "vpc_origin_config")] : []
+        content {
+          vpc_origin_id            = lookup(vpc_origin_config.value, "vpc_origin_id", null) != null ? vpc_origin_config.value.vpc_origin_id : aws_cloudfront_vpc_origin.vpc_origin[vpc_origin_config.value.vpc_origin_key].id
+          origin_read_timeout      = lookup(vpc_origin_config.value, "origin_read_timeout", 30)
+          origin_keepalive_timeout = lookup(vpc_origin_config.value, "origin_keepalive_timeout", 5)
+        }
+      }
+
       dynamic "custom_header" {
         for_each = lookup(origin.value, "custom_header", [])
         content {

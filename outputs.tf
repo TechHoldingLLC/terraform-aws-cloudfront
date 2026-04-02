@@ -17,3 +17,13 @@ output "domain_name" {
 output "aliases" {
   value = aws_cloudfront_distribution.cloudfront.aliases
 }
+
+output "vpc_origin_ids" {
+  description = "Map of VPC origin keys to their IDs"
+  value       = { for k, v in aws_cloudfront_vpc_origin.vpc_origin : k => v.id }
+}
+
+output "vpc_origin_arns" {
+  description = "Map of VPC origin keys to their ARNs"
+  value       = { for k, v in aws_cloudfront_vpc_origin.vpc_origin : k => v.arn }
+}
