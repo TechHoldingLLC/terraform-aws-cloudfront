@@ -109,7 +109,6 @@ Use this when your ALB lives in a **private subnet** and has no public IP.
 The module creates the `aws_cloudfront_vpc_origin` resource internally — you just reference it by key, which avoids a circular dependency.
 
 ```hcl
-## Prerequisite: a private ALB defined elsewhere in Terraform
 ## resource "aws_lb" "private" { ... internal = true ... }
 
 module "cloudfront" {
@@ -147,6 +146,7 @@ module "cloudfront" {
       }
     }
   ]
+}
 ```
 ## Cloudfront distribution with multiple origin and cache behavior
 ```
