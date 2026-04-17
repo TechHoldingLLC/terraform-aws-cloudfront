@@ -56,7 +56,7 @@ module "cloudfront" {
       ]
     }
   ]
-      
+
   domain_aliases = ["example.com", "www.example.com"]
   acm_arn        = "acm_arn"
   ## it's helpful to handle 404 to redirect on index.html with 200 response for read based build
@@ -93,7 +93,7 @@ module "cloudfront" {
   domain_aliases = ["example.com", "www.example.com"]
   acm_arn        = "acm_arn"
 
-  ## TTL(Time to Live) is the time in seconds that an object is in Cloudfront Cache.
+  ## TTL(Time to Live) is the time in seconds that you want object to stay in cloudfront cache.
   # If we pass these below values then it will be overwritten by default values.
   ttl_values = {
     min_ttl = 1         # min amount of time that you want objects to stay in cloudfront cache before it sends another request to origin
@@ -103,6 +103,51 @@ module "cloudfront" {
 }
 ```
 
+## Cloudfront distribution with VPC origin (private ALB)
+
+Use this when your ALB lives in a **private subnet** and has no public IP.
+The module creates the `aws_cloudfront_vpc_origin` resource internally — you just reference it by key, which avoids a circular dependency.
+
+```hcl
+## resource "aws_lb" "private" { ... internal = true ... }
+
+module "cloudfront" {
+  source = "git::https://github.com/TechHoldingLLC/terraform-aws-cloudfront.git?ref=<TAG>"
+
+  ## Step 1 — declare the VPC origin(s) to be created by the module.
+  vpc_origins = {
+    alb = {
+      name = "my-private-alb"
+      arn = aws_lb.private.arn
+
+      ## Ports the ALB listens on (defaults: 80 / 443).
+      http_port  = 80
+      https_port = 443
+
+      origin_protocol_policy = "https-only"
+
+      origin_ssl_protocols = ["TLSv1.2"]
+    }
+  }
+
+  ## Step 2 — define the CloudFront origin that points at the VPC origin above.
+  origin = [
+    {
+
+      domain_name = aws_lb.private.dns_name
+
+      ## Any unique string that identifies this origin within the distribution.
+      origin_id = "alb-vpc-origin"
+
+      vpc_origin_config = {
+        vpc_origin_key = "alb"
+        origin_read_timeout = 30
+        origin_keepalive_timeout = 5
+      }
+    }
+  ]
+}
+```
 ## Cloudfront distribution with multiple origin and cache behavior
 ```
 module "cloudfront" {
@@ -128,7 +173,7 @@ module "cloudfront" {
 
   ## Can be used only if cache_policy_id is not used
   # forwarded_values = {
-  #   query_string            = true 
+  #   query_string            = true
   #   query_string_cache_keys = ["list of query string cache keys"]     # set only if query_string is true and not all query string are meant to be cached
   #   headers                 = ["list of headers"]                     # specify * to include all headers
   #   cookie_forward           = ""

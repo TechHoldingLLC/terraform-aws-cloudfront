@@ -156,3 +156,9 @@ variable "s3_bucket_name" {
   type        = string
   default     = ""
 }
+
+variable "vpc_origins" {
+  description = "Map of VPC origin configurations to create aws_cloudfront_vpc_origin resources for private ALB/NLB access"
+  type        = any
+  default     = {}
+}
