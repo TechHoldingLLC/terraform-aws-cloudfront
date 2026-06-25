@@ -101,7 +101,7 @@ variable "http_version" {
 variable "is_ipv6_enabled" {
   description = "ipv6 status"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "ttl_values" {

@@ -19,7 +19,9 @@ No modules.
 | Name | Type |
 |------|------|
 | [aws_cloudfront_distribution.cloudfront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
+| [aws_cloudfront_vpc_origin.vpc_origin](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_vpc_origin) | resource |
 | [aws_route53_record.cloudfront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_record.cloudfront_ipv6](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_s3_object.object](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
 
 ## Inputs
@@ -41,7 +43,7 @@ No modules.
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Cloudfront state | `bool` | `true` | no |
 | <a name="input_function_association"></a> [function\_association](#input\_function\_association) | Function association | `list(any)` | `[]` | no |
 | <a name="input_http_version"></a> [http\_version](#input\_http\_version) | HTTP version to be allowed | `string` | `"http2"` | no |
-| <a name="input_is_ipv6_enabled"></a> [is\_ipv6\_enabled](#input\_is\_ipv6\_enabled) | ipv6 status | `bool` | `false` | no |
+| <a name="input_is_ipv6_enabled"></a> [is\_ipv6\_enabled](#input\_is\_ipv6\_enabled) | ipv6 status | `bool` | `true` | no |
 | <a name="input_lambda_function_association"></a> [lambda\_function\_association](#input\_lambda\_function\_association) | Lambda edge association | `list(any)` | `[]` | no |
 | <a name="input_logging_config"></a> [logging\_config](#input\_logging\_config) | Cloudfront logging config | `map(any)` | `{}` | no |
 | <a name="input_ordered_cache_behavior"></a> [ordered\_cache\_behavior](#input\_ordered\_cache\_behavior) | List of ordered cache behaviour | `any` | `[]` | no |
@@ -52,6 +54,7 @@ No modules.
 | <a name="input_s3_bucket_name"></a> [s3\_bucket\_name](#input\_s3\_bucket\_name) | s3 bucket name for flag | `string` | `""` | no |
 | <a name="input_ttl_values"></a> [ttl\_values](#input\_ttl\_values) | map of ttl variables | `map(any)` | `{}` | no |
 | <a name="input_viewer_protocol_policy"></a> [viewer\_protocol\_policy](#input\_viewer\_protocol\_policy) | the protocol that users can use to access the files in the origin, valid values are allow-all, https-only, or redirect-to-https. | `string` | `"redirect-to-https"` | no |
+| <a name="input_vpc_origins"></a> [vpc\_origins](#input\_vpc\_origins) | Map of VPC origin configurations to create aws\_cloudfront\_vpc\_origin resources for private ALB/NLB access | `any` | `{}` | no |
 | <a name="input_web_acl_id"></a> [web\_acl\_id](#input\_web\_acl\_id) | WAF web ACL id | `string` | `""` | no |
 
 ## Outputs
@@ -63,6 +66,8 @@ No modules.
 | <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | n/a |
 | <a name="output_hosted_zone_id"></a> [hosted\_zone\_id](#output\_hosted\_zone\_id) | n/a |
 | <a name="output_id"></a> [id](#output\_id) | n/a |
+| <a name="output_vpc_origin_arns"></a> [vpc\_origin\_arns](#output\_vpc\_origin\_arns) | Map of VPC origin keys to their ARNs |
+| <a name="output_vpc_origin_ids"></a> [vpc\_origin\_ids](#output\_vpc\_origin\_ids) | Map of VPC origin keys to their IDs |
 
 ## License
 
