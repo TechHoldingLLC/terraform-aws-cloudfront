@@ -103,6 +103,35 @@ module "cloudfront" {
 }
 ```
 
+## Cloudfront distribution with IPv6 enabled and custom domain
+
+Setting `is_ipv6_enabled = true` lets CloudFront serve traffic over IPv6.
+When a `route53_zone_id` is also provided, the module creates **both** records
+for each alias: an `A` record (IPv4) and an `AAAA` record (IPv6). Both are
+Route53 alias records pointing at the same CloudFront distribution.
+
+```hcl
+module "cloudfront" {
+  source = "git::https://github.com/TechHoldingLLC/terraform-aws-cloudfront.git?ref=<TAG>"
+
+  origin = [
+    {
+      domain_name              = "s3_bucket_regional_domain_name"
+      origin_id                = "s3_bucket_name"
+      origin_access_control_id = "s3_cloudfront_origin_access_control_id"
+    }
+  ]
+
+  domain_aliases  = ["example.com", "www.example.com"]
+  acm_arn         = "acm_arn"
+  route53_zone_id = "Z123456ABCDEF"
+
+  ## Enable IPv6 on the distribution. The module will create A + AAAA
+  ## alias records for each entry in domain_aliases.
+  is_ipv6_enabled = true
+}
+```
+
 ## Cloudfront distribution with VPC origin (private ALB)
 
 Use this when your ALB lives in a **private subnet** and has no public IP.
