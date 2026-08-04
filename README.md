@@ -9,6 +9,7 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0 |
+| <a name="provider_aws.us_east_1"></a> [aws.us\_east\_1](#provider\_aws.us\_east\_1) | >= 5.0 |
 
 ## Modules
 
@@ -20,6 +21,11 @@ No modules.
 |------|------|
 | [aws_cloudfront_distribution.cloudfront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
 | [aws_cloudfront_vpc_origin.vpc_origin](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_vpc_origin) | resource |
+| [aws_cloudwatch_log_delivery.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_delivery) | resource |
+| [aws_cloudwatch_log_delivery_destination.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_delivery_destination) | resource |
+| [aws_cloudwatch_log_delivery_source.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_delivery_source) | resource |
+| [aws_cloudwatch_log_group.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [aws_cloudwatch_log_resource_policy.access_logs_delivery](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_resource_policy) | resource |
 | [aws_route53_record.cloudfront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.cloudfront_ipv6](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_s3_object.object](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
@@ -31,6 +37,7 @@ No modules.
 | <a name="input_acm_arn"></a> [acm\_arn](#input\_acm\_arn) | ACM cert arn | `string` | `""` | no |
 | <a name="input_allowed_methods"></a> [allowed\_methods](#input\_allowed\_methods) | Allowed methods | `list(any)` | <pre>[<br>  "GET",<br>  "HEAD"<br>]</pre> | no |
 | <a name="input_cache_policy_id"></a> [cache\_policy\_id](#input\_cache\_policy\_id) | AWS managed cache policy id | `string` | `""` | no |
+| <a name="input_cloudwatch_access_logs"></a> [cloudwatch\_access\_logs](#input\_cloudwatch\_access\_logs) | CloudFront access logs delivered to CloudWatch Logs. When enabled, the module creates the log group, log delivery source/destination, delivery, and the required resource policy, all in us-east-1, managed internally by the module. | <pre>object({<br>  enabled                  = optional(bool, false)<br>  create_log_group         = optional(bool, true)<br>  log_group_name           = optional(string, null)<br>  log_group_retention_days = optional(number, 30)<br>  log_group_arn            = optional(string, null)<br>  output_format            = optional(string, "json")<br>  record_fields            = optional(list(string), [])<br>})</pre> | `{}` | no |
 | <a name="input_cached_methods"></a> [cached\_methods](#input\_cached\_methods) | Cached methods | `list(any)` | <pre>[<br>  "GET",<br>  "HEAD"<br>]</pre> | no |
 | <a name="input_comment"></a> [comment](#input\_comment) | n/a | `string` | `" "` | no |
 | <a name="input_compress"></a> [compress](#input\_compress) | Compress file | `bool` | `false` | no |
@@ -63,6 +70,8 @@ No modules.
 |------|-------------|
 | <a name="output_aliases"></a> [aliases](#output\_aliases) | n/a |
 | <a name="output_arn"></a> [arn](#output\_arn) | n/a |
+| <a name="output_cloudwatch_log_group_arn"></a> [cloudwatch\_log\_group\_arn](#output\_cloudwatch\_log\_group\_arn) | ARN of the CloudWatch log group receiving CloudFront access logs (null if disabled or using an existing log group) |
+| <a name="output_cloudwatch_log_group_name"></a> [cloudwatch\_log\_group\_name](#output\_cloudwatch\_log\_group\_name) | Name of the CloudWatch log group receiving CloudFront access logs (null if disabled or using an existing log group) |
 | <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | n/a |
 | <a name="output_hosted_zone_id"></a> [hosted\_zone\_id](#output\_hosted\_zone\_id) | n/a |
 | <a name="output_id"></a> [id](#output\_id) | n/a |
