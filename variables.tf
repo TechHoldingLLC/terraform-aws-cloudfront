@@ -165,7 +165,7 @@ variable "vpc_origins" {
 
 # CloudWatch Logs configuration
 variable "cloudwatch_access_logs" {
-  description = "CloudFront access logs delivered to CloudWatch Logs. When enabled, the module creates the log group, log delivery source/destination, delivery, and the required resource policy, all in us-east-1, managed internally by the module."
+  description = "Configuration for CloudWatch Logs access logs for the CloudFront distribution"
   type = object({
     enabled                  = optional(bool, false)
     create_log_group         = optional(bool, true)
