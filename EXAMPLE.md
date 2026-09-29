@@ -132,6 +132,34 @@ module "cloudfront" {
 }
 ```
 
+## Cloudfront distribution with CloudWatch access logs
+
+CloudFront access logs can be delivered to a CloudWatch log group. The module creates the log group, log delivery source/destination, delivery, and the required resource policy — all in `us-east-1` (managed internally by the module).
+
+```hcl
+module "cloudfront" {
+  source = "git::https://github.com/TechHoldingLLC/terraform-aws-cloudfront.git?ref=<TAG>"
+
+  origin = [
+    {
+      domain_name              = "s3_bucket_regional_domain_name"
+      origin_id                = "s3_bucket_name"
+      origin_access_control_id = "s3_cloudfront_origin_access_control_id"
+    }
+  ]
+
+  domain_aliases = ["example.com"]
+  acm_arn        = "acm_arn"
+
+  cloudwatch_access_logs = {
+    enabled                  = true
+    log_group_name           = "/aws/cloudfront/example-com"
+    log_group_retention_days = 30
+    output_format            = "json"
+  }
+}
+```
+
 ## Cloudfront distribution with VPC origin (private ALB)
 
 Use this when your ALB lives in a **private subnet** and has no public IP.

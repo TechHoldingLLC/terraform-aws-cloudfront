@@ -27,3 +27,13 @@ output "vpc_origin_arns" {
   description = "Map of VPC origin keys to their ARNs"
   value       = { for k, v in aws_cloudfront_vpc_origin.vpc_origin : k => v.arn }
 }
+
+output "cloudwatch_log_group_arn" {
+  description = "ARN of the CloudWatch log group receiving CloudFront access logs (null if disabled or using an existing log group)"
+  value       = one(aws_cloudwatch_log_group.access_logs[*].arn)
+}
+
+output "cloudwatch_log_group_name" {
+  description = "Name of the CloudWatch log group receiving CloudFront access logs (null if disabled or using an existing log group)"
+  value       = one(aws_cloudwatch_log_group.access_logs[*].name)
+}

@@ -162,3 +162,18 @@ variable "vpc_origins" {
   type        = any
   default     = {}
 }
+
+# CloudWatch Logs configuration
+variable "cloudwatch_access_logs" {
+  description = "Configuration for CloudWatch Logs access logs for the CloudFront distribution"
+  type = object({
+    enabled                  = optional(bool, false)
+    create_log_group         = optional(bool, true)
+    log_group_name           = optional(string, null)
+    log_group_retention_days = optional(number, 30)
+    log_group_arn            = optional(string, null)
+    output_format            = optional(string, "json")
+    record_fields            = optional(list(string), [])
+  })
+  default = {}
+}
