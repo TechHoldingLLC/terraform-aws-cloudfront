@@ -92,6 +92,12 @@ variable "cache_policy_id" {
   default     = ""
 }
 
+variable "response_headers_policy_id" {
+  description = "Response headers policy id for the default cache behavior"
+  type        = string
+  default     = ""
+}
+
 variable "http_version" {
   description = "HTTP version to be allowed"
   type        = string

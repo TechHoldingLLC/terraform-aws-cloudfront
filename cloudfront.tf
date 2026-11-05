@@ -69,6 +69,8 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     cache_policy_id          = var.cache_policy_id
     origin_request_policy_id = var.origin_request_policy_id
 
+    response_headers_policy_id = var.response_headers_policy_id
+
     viewer_protocol_policy = var.viewer_protocol_policy
     compress               = var.compress
     min_ttl                = lookup(var.ttl_values, "min_ttl", null)
